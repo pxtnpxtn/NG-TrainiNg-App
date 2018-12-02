@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   template: `
     <div>
-      Hello
+      Training Ring
       <div class="wrapper">
         <router-outlet></router-outlet>
       </div>
