@@ -39,6 +39,10 @@ export class AuthService {
             .signInWithEmailAndPassword(email, password);
     }
 
+    logoutUser() {
+        return this.af.auth.signOut()
+    }
+
     constructor(
         private store: Store,
         private af: AngularFireAuth
