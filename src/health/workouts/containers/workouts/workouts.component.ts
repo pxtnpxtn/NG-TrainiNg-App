@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-workouts',
+  selector: 'workouts',
   templateUrl: './workouts.component.html',
   styleUrls: ['./workouts.component.scss']
 })
