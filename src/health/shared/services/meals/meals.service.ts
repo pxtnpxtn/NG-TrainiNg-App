@@ -19,14 +19,22 @@ export class MealsService {
     meals$: Observable<any> = this.db.list(`meals/${this.uid}`)
         .do(next => this.store.set('meals', next));
 
+    get uid() {
+        return this.authService.user.uid;
+    }
+
+    addMeal(meal: Meal) {
+        return this.db.list(`meals/${this.uid}`).push(meal);
+    }
+
+    removeMeal(key: string) {
+        return this.db.list(`meals/${this.uid}`).remove(key);
+    }
+
     constructor(
         private store: Store,
         private db: AngularFireDatabase,
         private authService: AuthService
     ) { }
-
-    get uid() {
-        return this.authService.user.uid;
-    }
 
 }

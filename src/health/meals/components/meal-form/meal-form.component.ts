@@ -1,6 +1,9 @@
 import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { Meal } from 'src/health/shared/services/meals/meals.service';
 import { Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
+
+// Interface
+import { Meal } from '../../../shared/services/meals/meals.service';
+
 
 @Component({
   selector: 'app-meal-form',
