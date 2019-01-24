@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
 import { Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 
 // Interface
@@ -11,15 +11,54 @@ import { Meal } from '../../../shared/services/meals/meals.service';
   templateUrl: './meal-form.component.html',
   styleUrls: ['./meal-form.component.scss']
 })
-export class MealFormComponent {
+export class MealFormComponent implements OnChanges {
+
+  toggled = false;
+  exists = false;
+
+  @Input()
+  meal: Meal;
 
   @Output()
   create = new EventEmitter<Meal>();
+
+  @Output()
+  update = new EventEmitter<Meal>();
+
+  @Output()
+  remove = new EventEmitter<Meal>();
 
   form = this.fb.group({
     name: ['', Validators.required],
     ingredients: this.fb.array([''])
   });
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.meal && this.meal.name) {
+      this.exists = true;
+      this.emptyIngredients();
+
+      const value = this.meal;
+      this.form.patchValue(value);
+
+      if (value.ingredients) {
+        for (const item of value.ingredients) {
+          this.ingredients.push(new FormControl(item));
+        }
+      }
+
+    }
+  }
+
+  emptyIngredients() {
+    while (this.ingredients.controls.length) {
+      this.ingredients.removeAt(0);
+    }
+  }
 
   get required() {
     return (
@@ -46,8 +85,18 @@ export class MealFormComponent {
     }
   }
 
-  constructor(
-    private fb: FormBuilder
-  ) { }
+  updateMeal() {
+    if (this.form.valid) {
+      this.update.emit(this.form.value);
+    }
+  }
+
+  removeMeal() {
+    this.remove.emit(this.form.value);
+  }
+
+  toggle() {
+    this.toggled = !this.toggled;
+  }
 
 }

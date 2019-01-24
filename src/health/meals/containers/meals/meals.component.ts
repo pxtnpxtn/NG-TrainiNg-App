@@ -16,6 +16,11 @@ export class MealsComponent implements OnInit, OnDestroy {
   meals$: Observable<Meal[]>;
   subscription: Subscription;
 
+  constructor(
+    private store: Store,
+    private mealsService: MealsService
+  ) { }
+
   ngOnInit() {
     this.meals$ = this.store.select<Meal[]>('meals');
     this.subscription = this.mealsService.meals$.subscribe();
@@ -28,9 +33,4 @@ export class MealsComponent implements OnInit, OnDestroy {
   removeMeal(event: Meal) {
     this.mealsService.removeMeal(event.$key);
   }
-
-  constructor(
-    private store: Store,
-    private mealsService: MealsService
-  ) { }
 }
