@@ -11,11 +11,11 @@ import { ListItemComponent } from './components/list-item/list-item.component'
 // services
 import { MealsService } from './services/meals/meals.service';
 import { ScheduleService } from './services/schedule/schedule.service';
-// import { WorkoutsService } from './services/workouts/workouts.service';
+import { WorkoutsService } from './services/workouts/workouts.service';
 
 // pipes
-// import { JoinPipe } from './pipes/join.pipe';
-// import { WorkoutPipe } from './pipes/workout.pipe';
+import { JoinPipe } from './pipes/join.pipe';
+import { WorkoutPipe } from './pipes/workout.pipe';
 
 @NgModule({
     imports: [
@@ -25,13 +25,13 @@ import { ScheduleService } from './services/schedule/schedule.service';
     ],
     declarations: [
         ListItemComponent,
-        // JoinPipe,
-        // WorkoutPipe
+        JoinPipe,
+        WorkoutPipe
     ],
     exports: [
         ListItemComponent,
-        // JoinPipe,
-        // WorkoutPipe
+        JoinPipe,
+        WorkoutPipe
     ]
 })
 export class SharedModule {
@@ -40,8 +40,8 @@ export class SharedModule {
             ngModule: SharedModule,
             providers: [
                 MealsService,
-                ScheduleService
-                // WorkoutsService,
+                ScheduleService,
+                WorkoutsService
             ]
         };
     }
